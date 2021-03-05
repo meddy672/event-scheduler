@@ -12,14 +12,13 @@ exports.createEvent = (req, res, next) => {
     }
     const event = {
         name: req.body.name,
-        start_time: moment(req.body.start_time),
+        start_time: req.body.start_time,
         end_time: req.body.end_time,
         description: req.body.description,
         location: req.body.location,
         type: req.body.type
     };
     events.push(event);
-    console.log(events);
     res.status(200).json({
         message: 'Post created successfully',
         event: event
