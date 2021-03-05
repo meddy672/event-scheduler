@@ -1,5 +1,6 @@
 // Dependencies
 const express = require('express');
+const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const eventsRoutes = require('./routes/events');
 
@@ -12,6 +13,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
 
 // Event Routes
 app.use('/events', eventsRoutes);
@@ -26,6 +28,16 @@ app.use((error, req, res, next) => {
   });
 
 const port = process.env.PORT || 3000;
-app.listen(3000, () => {
-    console.log(`Server is running on port ${port}`);
-});
+
+// Setup Database connection
+// Mongoose Connection
+mongoose.connect('mongodb://localhost/events', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useFindAndModify: false,
+  useCreateIndex: true
+}).then(() => {
+    app.listen(3000, () => {
+      console.log(`Server is running on port ${port}`);
+  });
+})
