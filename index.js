@@ -1,7 +1,7 @@
 // Dependencies
 const express = require('express');
 const bodyParser = require('body-parser');
-const eventsRoutes = require('./routes/events')
+const eventsRoutes = require('./routes/events');
 
 
 // App
@@ -13,8 +13,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json());
 
+// Event Routes
 app.use('/events', eventsRoutes);
 
+// Default Error Handler
 app.use((error, req, res, next) => {
     console.log(error);
     const status = error.statusCode || 500;
