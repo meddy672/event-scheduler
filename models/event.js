@@ -1,4 +1,5 @@
-const { mongoose, Schema } = require('mongoose');
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
 // Define the schema
 const eventSchema = Schema({
@@ -8,12 +9,9 @@ const eventSchema = Schema({
     description: { type: String, required: true },
     location: { type: String, required: true },
     eventType: { type: String, required: true },
-    rsvp: { type: String }
+    rsvp: { type: Array }
     
 });
 
-// Create event model
-const Event = mongoose.model('Event', eventSchema);
-
-export default Event;
+module.exports = mongoose.model('Event', eventSchema);
 

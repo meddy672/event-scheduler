@@ -7,6 +7,7 @@ const eventsRoutes = require('./routes/events');
 
 // App
 const app = express();
+const port = process.env.PORT || 3000;
 
 // Middlewares
 app.use(express.json());
@@ -18,6 +19,7 @@ app.use(bodyParser.json());
 // Event Routes
 app.use('/events', eventsRoutes);
 
+
 // Default Error Handler
 app.use((error, req, res, next) => {
     console.log(error);
@@ -27,10 +29,9 @@ app.use((error, req, res, next) => {
     res.status(status).json({ message: message, data: data });
   });
 
-const port = process.env.PORT || 3000;
+
 
 // Setup Database connection
-// Mongoose Connection
 mongoose.connect('mongodb://localhost/events', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
