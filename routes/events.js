@@ -54,15 +54,21 @@ router.post('/filter',
 
 
 /**
- * route to list all the rsvp's for a particular event
+ * route to list all the rsvp's for a particular event.
  */
-router.post('/rsvp/:eventId', eventCtrl.rsvp);
+router.post('/rsvp/:eventId',
+    [
+        body('fullName').not().isEmpty(),
+        body('status').not().isEmpty(),
+    ], validate,
+    eventCtrl.rsvp
+);
 
 
 /**
- * route to list all the rsvp's for a particular event
+ * route to list the rsvp's for a particular event.
  */
-router.get('/rsvp', eventCtrl.listRsvp);
+router.get('/rsvp/:eventId', eventCtrl.listRsvp);
 
 
 

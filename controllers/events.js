@@ -91,7 +91,7 @@ exports.filterByDate = (req, res, next) => {
 
 
 /**
- * list rsvp for a particular event.
+ * list rsvp's for a particular event.
  */
 exports.listRsvp = (req, res, next) => {
     const eventId = req.params.eventId;
@@ -105,13 +105,18 @@ exports.listRsvp = (req, res, next) => {
 
 
 /**
- * list rsvp for a particular event.
+ * allow user to rsvp for a particular event.
  */
 exports.rsvp = (req, res, next) => {
     const eventId = req.params.eventId;
     const event = events.find(event => event.id === eventId);
+    const rsvp = {
+        name: req.body.fullName,
+        status: req.body.status
+    }
+    event.rsvp.push(rsvp);
     res.status(200).json({
-        message: 'RSVP for ' + event.name,
+        message: 'RSVP created successfully',
         rsvp: event.rsvp
     });
 }
