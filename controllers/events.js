@@ -1,5 +1,4 @@
-const { validationResult } = require('express-validator');
-const { formatDate } = require('../util/dates');
+const { formatDate, validate } = require('../util/helpers');
 const { v4: uuidv4 } = require('uuid');
 const events = [];
 
@@ -8,15 +7,9 @@ const events = [];
  * creates a new event and saves it to database
  */
 exports.createEvent = (req, res, next) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        console.error(errors);
-        const error = new Error('Validation failed, entered data is incorrect.');
-        error.statusCode = 422;
-        throw error;
-    }
     const start_time = formatDate(req.body.start_time);
     const end_time = formatDate(req.body.end_time);
+    
     const event = {
         id: uuidv4(),
         name: req.body.name,
@@ -41,14 +34,9 @@ exports.createEvent = (req, res, next) => {
  */
 exports.updateEvent = (req, res, next) => {
     const eventId = req.params.eventId;
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      const error = new Error('Validation failed, entered data is incorrect.');
-      error.statusCode = 422;
-      throw error;
-    }
     const start_time = formatDate(req.body.start_time);
     const end_time = formatDate(req.body.end_time);
+
     const updatedEvents = events.map(event => {
         if (event.id === eventId) {
             return {
@@ -71,7 +59,7 @@ exports.updateEvent = (req, res, next) => {
 
 
 /**
- * deletes an event based eventId
+ * removes an event based eventId
  */
 exports.deleteEvent = (req, res, next) => {
     const eventId = req.params.eventId;
@@ -84,7 +72,7 @@ exports.deleteEvent = (req, res, next) => {
 
 
 /**
- * 
+ * filters events between start_time and end_time
  */
 exports.filterByDate = (req, res, next) => {
     
