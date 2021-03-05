@@ -10,7 +10,7 @@ const app = express();
 // Middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // Event Routes
@@ -25,7 +25,7 @@ app.use((error, req, res, next) => {
     res.status(status).json({ message: message, data: data });
   });
 
-const port = 3000;
+const port = process.env.PORT || 3000;
 app.listen(3000, () => {
-    console.log(`Server is running on port ${port}`)
+    console.log(`Server is running on port ${port}`);
 });
