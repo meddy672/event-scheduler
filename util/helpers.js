@@ -5,7 +5,7 @@ const { validationResult } = require('express-validator');
  * helper function to format dates
  */
 exports.formatDate = (date) => {
-    const format = "YYYY-MM-DD HH:mm:ss";
+    const format = "MM/DD/YYYY HH:mm:ss";
     const formattedDate = new Date(date);
     return moment(formattedDate).format(format);
 }
@@ -23,5 +23,5 @@ exports.validate = (req, res, next) => {
         error.statusCode = 422;
         throw error;
     }
-    next()
+    next();
 }

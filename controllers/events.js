@@ -1,4 +1,5 @@
 const { formatDate, validate } = require('../util/helpers');
+const moment = require('moment');
 const { v4: uuidv4 } = require('uuid');
 const events = [];
 
@@ -7,17 +8,18 @@ const events = [];
  * creates a new event and saves it to database
  */
 exports.createEvent = (req, res, next) => {
-    const start_time = formatDate(req.body.start_time);
-    const end_time = formatDate(req.body.end_time);
-    
+    const start = formatDate(req.body.start);
+    const end = formatDate(req.body.end);
+
     const event = {
         id: uuidv4(),
         name: req.body.name,
-        start_time: start_time,
-        end_time: end_time,
+        start: start,
+        end: end,
         description: req.body.description,
         location: req.body.location,
-        type: req.body.type
+        type: req.body.type,
+        rsvp:[]
     };
     events.push(event);
     res.status(200).json({
@@ -34,19 +36,20 @@ exports.createEvent = (req, res, next) => {
  */
 exports.updateEvent = (req, res, next) => {
     const eventId = req.params.eventId;
-    const start_time = formatDate(req.body.start_time);
-    const end_time = formatDate(req.body.end_time);
+    const start = formatDate(req.body.start);
+    const end = formatDate(req.body.end);
 
     const updatedEvents = events.map(event => {
         if (event.id === eventId) {
             return {
                 ...event,
                 name: req.body.name,
-                start_time: start_time,
-                end_time: end_time,
+                start: start,
+                end: end,
                 description: req.body.description,
                 location: req.body.location,
-                type: req.body.type
+                type: req.body.type,
+                rsvp:[]
             }
         }
         return event;
@@ -71,17 +74,44 @@ exports.deleteEvent = (req, res, next) => {
 }
 
 
+
 /**
- * filters events between start_time and end_time
+ * filters events between start and end date and time.
  */
 exports.filterByDate = (req, res, next) => {
-    
+    const filterDate = formatDate(req.body.date);
+    const filteredEvents = events.filter(event => {
+        return moment(req.body.date).isBetween(event.start, event.end, 'hour', '[)');
+    });
+    res.status(200).json({
+        message: 'Events found between ' + filterDate,
+        events: filteredEvents
+    });
 }
 
 
 /**
- * 
+ * list rsvp for a particular event.
  */
 exports.listRsvp = (req, res, next) => {
-    
+    const eventId = req.params.eventId;
+    const event = events.find(event => event.id === eventId);
+    res.status(200).json({
+        message: 'RSVP for ' + event.name,
+        rsvp: event.rsvp
+    });
+}
+
+
+
+/**
+ * list rsvp for a particular event.
+ */
+exports.rsvp = (req, res, next) => {
+    const eventId = req.params.eventId;
+    const event = events.find(event => event.id === eventId);
+    res.status(200).json({
+        message: 'RSVP for ' + event.name,
+        rsvp: event.rsvp
+    });
 }
