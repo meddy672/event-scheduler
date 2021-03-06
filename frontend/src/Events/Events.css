@@ -5,6 +5,16 @@
     margin-bottom: 20px;
 }
 
-label{
+.event-label{
     font-weight: bold;
+    padding: 10px;
+}
+
+.filter-label{
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.card-link{
+    cursor: pointer;
 }
