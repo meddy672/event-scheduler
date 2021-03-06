@@ -1,8 +1,8 @@
-.event {
+.Event {
     
-    margin-top: 30px;
+    margin-top: 60px;
 }
 
-.mb-3, .g-3 {
-    padding: 8px;
+label {
+    padding-top: 15px;
 }
