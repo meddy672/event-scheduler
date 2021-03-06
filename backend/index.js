@@ -2,6 +2,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const eventsRoutes = require('./routes/events');
 
 
@@ -10,6 +11,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 // Middlewares
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.urlencoded({ extended: false }));

@@ -1,12 +1,11 @@
-import './App.css';
 import Navbar from './Navbar/Navbar';
-import Event from './Event/Event';
+import './App.css';
 
-function App() {
+function App(props) {
   return (
     <div className="App">
       <Navbar />
-      <Event />
+      {props.children}
     </div>
   );
 }

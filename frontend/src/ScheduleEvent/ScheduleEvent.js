@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import DateTimePicker from 'react-datetime-picker';
 
-import './Event.css';
+import './ScheduleEvent.css';
 
-function Event() {
+function ScheduleEvent() {
     const [startTime, onChangeStartTime] = useState(new Date());
     const [endTime, onChangeEndTime] = useState(new Date());
 
 
     return (
-        <div className="container Event">
+        <div className="container ScheduleEvent">
             <div className="col-md-8 offset-md-2">
                 <h1>Schedule Event</h1>
                 <hr />
@@ -18,11 +18,11 @@ function Event() {
             }}>
                 <div className="col-md-6">
                     <label className="form-label">Event Name</label>
-                    <input type="email" className="form-control" id="inputEmail4" />
+                    <input type="text" className="form-control" id="inputEmail4" />
                 </div>
                 <div className="col-md-6">
                     <label className="form-label">Event Location</label>
-                    <input type="password" className="form-control" id="inputPassword4" />
+                    <input type="text" className="form-control" id="inputPassword4" />
                 </div>
                 <div className="col-4">
                     <label className="form-label">Start Time</label>
@@ -38,7 +38,7 @@ function Event() {
                     <select className="form-select form-select-sm" aria-label="Default select example">
                         <option selected>Select Option</option>
                         <option value="in-person">In Person</option>
-                        <option value="hybird">hybird</option>
+                        <option value="hybird">Hybird</option>
                         <option value="virtual">Virtual</option>
                     </select>
                 </div>
@@ -56,4 +56,4 @@ function Event() {
     )
 }
 
-export default Event;
+export default ScheduleEvent;

@@ -78,4 +78,10 @@ router.get('/rsvp/:eventId', eventCtrl.listRsvp);
 router.delete('/:eventId', eventCtrl.deleteEvent);
 
 
+/**
+ * route to get all created events.
+ */
+router.get('/', eventCtrl.getEvents);
+
+
 module.exports = router;

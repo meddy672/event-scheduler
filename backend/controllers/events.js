@@ -158,3 +158,23 @@ exports.rsvp = async (req, res, next) => {
         })
     }
 }
+
+
+/**
+ * get all schedule events from database
+ */
+
+exports.getEvents = async (req, res, next) => {
+    try {
+        const events = await Event.find();
+        res.status(200).json({
+            message: 'All scheduled events',
+            events: events ? events : [],
+        })
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            messgae: 'An error has occurred'
+        })
+     }
+ }
