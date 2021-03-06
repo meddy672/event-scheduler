@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faClock, faBullhorn } from '@fortawesome/free-solid-svg-icons';
+import moment from 'moment';
 import axios from 'axios';
 
 import './Events.css';
@@ -16,7 +19,6 @@ function Events() {
             });
     }, []);
 
-    console.log(events)
     return (
         <div className="container Events">
             <h1>All Events</h1>
@@ -28,7 +30,9 @@ function Events() {
                             <div key={index} className="col-md-4">
                                 <div className="card" >
                                     <div className="card-body">
-                                        <h3 className="card-title">{event.name}</h3>
+                                        <h3 className="card-title">
+                                        <FontAwesomeIcon icon={faBullhorn} />    {event.name}
+                                        </h3>
                                         
                                         <p className="card-text">{event.description}</p>
                                     </div>
@@ -37,7 +41,6 @@ function Events() {
                                             <label>Event Type:</label> {event.eventType}
                                         </li>
                                         <li className="list-group-item">
-                                            <i className="icon-time"></i>
                                             <label>Starts On: </label> {event.start}
                                         </li>
                                         <li className="list-group-item">
