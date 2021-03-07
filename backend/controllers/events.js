@@ -96,8 +96,10 @@ exports.deleteEvent = async (req, res, next) => {
     const eventId = req.params.eventId;
     try {
         await Event.deleteOne({ _id: eventId });
+        const events = await Event.find();
         res.status(200).json({
             message: 'Event deleted successfully',
+            events: events
         });
     } catch (error) {
         console.error(error);
@@ -114,14 +116,17 @@ exports.deleteEvent = async (req, res, next) => {
  * filters events between start and end date and time
  */
 exports.filterByDate = async (req, res, next) => {
-    const filterDate = formatDate(req.body.date);
+    const formattedDate = formatDate(req.body.date);
     try {
         const events = await Event.find();
         const filteredEvents = events.filter(event => {
-            return moment(req.body.date).isBetween(event.start, event.end, 'hour', '[)');
+            const check = moment(formattedDate).toISOString();
+            const start = moment(event.start).toISOString();
+            const end = moment(event.end).toISOString();
+            return moment(check).isBetween(start, end, 'minute', '[]');
         });
         res.status(200).json({
-            message: 'Events found between ' + filterDate,
+            message: 'Events found between ' + req.body.date,
             events: filteredEvents
         });
     } catch (error) {

@@ -22,6 +22,7 @@ function Events() {
         axios.get('http://localhost:3000/events')
             .then(({ data }) => {
                 if (mounted) {
+                    console.log(data.events);
                     setEvents(data.events);
                 }
             });
@@ -35,7 +36,8 @@ function Events() {
      * allow user to delete an event
      */
     async function deleteEvent(id) {
-        await axios.delete('http://localhost:3000/events/' + id);
+        const { data } = await axios.delete('http://localhost:3000/events/' + id);
+        setEvents(data.events);
     }
 
     /**
@@ -61,7 +63,7 @@ function Events() {
                 <div className="row">
                     <label className="filter-label">Filter By Date</label>
                     <div className="mg-bottom-20">
-                        <DateTimePicker onChange={onChangeFilterDate} value={filterDate} />
+                        <DateTimePicker format="M/d/y hh:mm a" onChange={onChangeFilterDate} value={filterDate} />
                         <button onClick={filterEvents} className="filter-btn btn btn-sm btn-primary" type="button">filter</button>
                     </div>
                     {events.map((event, index) => {

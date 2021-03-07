@@ -94,9 +94,9 @@ function ScheduleEvent() {
                             aria-label="Default select example">
                             
                         <option defaultValue>Select Option</option>
-                        <option value="in-person">In Person</option>
-                        <option value="hybird">Hybird</option>
-                        <option value="virtual">Virtual</option>
+                        <option value="In-person">In Person</option>
+                        <option value="Hybird">Hybird</option>
+                        <option value="Virtual">Virtual</option>
                     </select>
                 </div>
 
