@@ -3,13 +3,17 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBullhorn } from '@fortawesome/free-solid-svg-icons';
 import DateTimePicker from 'react-datetime-picker';
 import axios from 'axios';
-
 import './Events.css';
 
+/**
+ * this component will handle updating, retreiving, deleting, and filtering events
+ */
 function Events() {
     const [events, setEvents] = useState([]);
     const [startTime, onChangeStartTime] = useState(new Date());
     let mounted = true;
+
+
 
     /**
      * retrieve all events from sever
@@ -35,10 +39,18 @@ function Events() {
 
 
     /**
-     * allow user to rsvp to selected event
+     * allow user to delete an event
      */
     async function deleteEvent(id) {
         const data = await axios.delete('http://localhost:3000/events/' + id);
+    }
+
+
+    /**
+     * allow user to update an event
+     */
+    async function updateEvent(id) {
+        
     }
 
     return (
@@ -57,9 +69,7 @@ function Events() {
                             <div key={index} className="col-md-4 mg-bottom-20">
                                 <div className="card" >
                                     <div className="card-body">
-                                        <h3 className="card-title">
-                                         {event.name}
-                                        </h3>
+                                        <h3 className="card-title">{event.name}</h3>
                                         <p className="card-text">{event.description}</p>
                                     </div>
                                     <ul className="list-group list-group-flush">

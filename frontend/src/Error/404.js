@@ -3,6 +3,10 @@ import { Link } from 'react-router-dom';
 
 import './404.css';
 
+/**
+ * this component will handle navigational errors
+ */
+
 function Error404() {
 
     return (

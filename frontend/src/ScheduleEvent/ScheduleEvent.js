@@ -3,15 +3,19 @@ import axios from 'axios';
 import DateTimePicker from 'react-datetime-picker';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarDay } from '@fortawesome/free-solid-svg-icons';
-
 import './ScheduleEvent.css';
 
+
+/**
+ * this component will handle creating new events.
+ */
 function ScheduleEvent() {
     const [startTime, onChangeStartTime] = useState(new Date());
     const [endTime, onChangeEndTime] = useState(new Date());
 
+
     /**
-     * handles submitting form data to server.
+     * handles submitting data to server.
      */
     async function handleSubmit(event) {
         event.preventDefault();
@@ -35,9 +39,8 @@ function ScheduleEvent() {
 
 
     /**
-     * clear form input fields
+     * handles clearing form input fields.
      */
-
     function clearFields(event) {
         event.target.eventName.value = '';
         event.target.eventDescription.value = '';
