@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faClock, faBullhorn } from '@fortawesome/free-solid-svg-icons';
+import { faBullhorn } from '@fortawesome/free-solid-svg-icons';
 import DateTimePicker from 'react-datetime-picker';
-import moment from 'moment';
 import axios from 'axios';
 
 import './Events.css';
@@ -10,16 +9,21 @@ import './Events.css';
 function Events() {
     const [events, setEvents] = useState([]);
     const [startTime, onChangeStartTime] = useState(new Date());
-
+    let mounted = true;
+    
     /**
      * retrieve all events from sever
      */
     useEffect(() => {
         axios.get('http://localhost:3000/events')
             .then(({ data }) => {
-                setEvents(data.events);
+                if (mounted) {
+                    setEvents(data.events);
+                }
             });
-    }, []);
+        
+        return () => { mounted = false; }
+    }, [deleteEvent]);
 
 
     /**
@@ -33,19 +37,21 @@ function Events() {
     /**
      * allow user to rsvp to selected event
      */
-    function deleteEvent(id) {
-        console.log(id);
+    async function deleteEvent(id) {
+        const data = await axios.delete('http://localhost:3000/events/' + id);
+        console.log(data);
     }
 
     return (
         <div className="container Events">
-            <h1>All Events</h1>
+            <h1>All Events <FontAwesomeIcon icon={faBullhorn} /></h1>
             <hr />
             {events.length > 0 && (
                 <div className="row">
                     <label className="filter-label">Filter By Date</label>
                     <div className="mg-bottom-20">
                         <DateTimePicker onChange={onChangeStartTime} value={startTime} />
+                        <button className="filter-btn btn btn-sm btn-primary" type="button">filter</button>
                     </div>
                     {events.map((event, index) => {
                         return (
@@ -53,7 +59,7 @@ function Events() {
                                 <div className="card" >
                                     <div className="card-body">
                                         <h3 className="card-title">
-                                        <FontAwesomeIcon icon={faBullhorn} /> {event.name}
+                                         {event.name}
                                         </h3>
                                         <p className="card-text">{event.description}</p>
                                     </div>
@@ -72,9 +78,9 @@ function Events() {
                                         </li>
                                     </ul>
                                     <div className="card-body">
-                                        <a onClick={() => rsvpToEvent(event._id)}  className="card-link">RSVP</a>
-                                        <a className="card-link">Edit</a>
-                                        <a onClick={() => deleteEvent(event._id)} className="card-link">Delete</a>
+                                        <span onClick={() => rsvpToEvent(event._id)}  className="card-link">RSVP</span>
+                                        <span className="card-link">Edit</span>
+                                        <span onClick={() => deleteEvent(event._id)} className="card-link">Delete</span>
                                     </div>
                                 </div>
                             </div>
