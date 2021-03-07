@@ -27,8 +27,19 @@ function ScheduleEvent() {
                 'Content-Type': 'application/x-www-form-urlencoded'
               }
         });
+        clearFields(event);
+    }
 
-        console.log(res)
+
+    /**
+     * clear form input fields
+     */
+
+    function clearFields(event) {
+        event.target.eventName.value = '';
+        event.target.eventDescription.value = '';
+        event.target.eventLocation.value = '';
+        event.target.eventType.value = '';
     }
 
 

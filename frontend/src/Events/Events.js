@@ -10,7 +10,7 @@ function Events() {
     const [events, setEvents] = useState([]);
     const [startTime, onChangeStartTime] = useState(new Date());
     let mounted = true;
-    
+
     /**
      * retrieve all events from sever
      */
@@ -39,7 +39,6 @@ function Events() {
      */
     async function deleteEvent(id) {
         const data = await axios.delete('http://localhost:3000/events/' + id);
-        console.log(data);
     }
 
     return (
@@ -55,7 +54,7 @@ function Events() {
                     </div>
                     {events.map((event, index) => {
                         return (
-                            <div key={index} className="col-md-4">
+                            <div key={index} className="col-md-4 mg-bottom-20">
                                 <div className="card" >
                                     <div className="card-body">
                                         <h3 className="card-title">
