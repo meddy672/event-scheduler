@@ -6,13 +6,13 @@ import axios from 'axios';
 import './Events.css';
 
 /**
- * this component will handle updating, retreiving, deleting, and filtering events
+ * this component will handle retreiving, deleting, and filtering events
  */
 function Events() {
     const [events, setEvents] = useState([]);
-    const [startTime, onChangeStartTime] = useState(new Date());
+    const [filterDate, onChangeFilterDate] = useState(new Date());
     let mounted = true;
-
+    
 
 
     /**
@@ -27,42 +27,42 @@ function Events() {
             });
         
         return () => { mounted = false; }
-    }, [deleteEvent]);
+    }, []);
 
-
-    /**
-     * allow user to rsvp to selected event
-     */
-    function rsvpToEvent(id) {
-        console.log(id);
-    }
 
 
     /**
      * allow user to delete an event
      */
     async function deleteEvent(id) {
-        const data = await axios.delete('http://localhost:3000/events/' + id);
+        await axios.delete('http://localhost:3000/events/' + id);
     }
-
 
     /**
-     * allow user to update an event
+     * filter events based on date
      */
-    async function updateEvent(id) {
-        
+    async function filterEvents() {
+        const formData = new URLSearchParams() 
+        formData.append('date', filterDate);
+        const {data} = await axios.post('http://localhost:3000/events/filter', formData, {
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+              }
+        })
+        setEvents(data.events);
     }
 
+
     return (
-        <div className="container Events">
+        <div className="container Events" id="Events">
             <h1>All Events <FontAwesomeIcon icon={faBullhorn} /></h1>
             <hr />
-            {events.length > 0 && (
+            {events.length > 0 ? (
                 <div className="row">
                     <label className="filter-label">Filter By Date</label>
                     <div className="mg-bottom-20">
-                        <DateTimePicker onChange={onChangeStartTime} value={startTime} />
-                        <button className="filter-btn btn btn-sm btn-primary" type="button">filter</button>
+                        <DateTimePicker onChange={onChangeFilterDate} value={filterDate} />
+                        <button onClick={filterEvents} className="filter-btn btn btn-sm btn-primary" type="button">filter</button>
                     </div>
                     {events.map((event, index) => {
                         return (
@@ -87,9 +87,7 @@ function Events() {
                                         </li>
                                     </ul>
                                     <div className="card-body">
-                                        <span onClick={() => rsvpToEvent(event._id)}  className="card-link">RSVP</span>
-                                        <span className="card-link">Edit</span>
-                                        <span onClick={() => deleteEvent(event._id)} className="card-link">Delete</span>
+                                        <span onClick={() => deleteEvent(event._id)} className="card-link">Delete</span>                                    
                                     </div>
                                 </div>
                             </div>
@@ -97,8 +95,11 @@ function Events() {
                     })
                     }
                 </div>
+            ) : (
+                    <h3>No events found for that date.</h3>
             )
             }
+            
         </div>
     );
 
