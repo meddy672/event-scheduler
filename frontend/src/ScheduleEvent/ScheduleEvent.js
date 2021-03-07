@@ -27,7 +27,10 @@ function ScheduleEvent() {
                 'Content-Type': 'application/x-www-form-urlencoded'
               }
         });
-        clearFields(event);
+        if (res.status === 201) {
+            clearFields(event);
+        }
+        
     }
 
 
