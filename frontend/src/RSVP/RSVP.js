@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import './RSVP.css';
-import { format } from 'url';
 
 
 /**
@@ -13,9 +12,9 @@ function RSVP() {
     const { eventId } = useParams();
     const [event, setEvent] = useState({});
 
-    let mounted = true;
 
     useEffect(() => {
+        let mounted = true;
         axios.get(`http://localhost:3000/events/${eventId}`)
             .then(res => {
                 const { data } = res;

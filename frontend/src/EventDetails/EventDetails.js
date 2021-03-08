@@ -12,10 +12,10 @@ function EventDetails() {
     const [startTime, onChangeStartTime] = useState(new Date());
     const [endTime, onChangeEndTime] = useState(new Date());
 
-    let mounted = true;
+    
 
     useEffect(() => {
-
+        let mounted = true;
         axios.get(`http://localhost:3000/events/${eventId}`)
             .then(({ data }) => {
                 if (mounted) {
@@ -28,7 +28,7 @@ function EventDetails() {
             })
 
         return () => { mounted = false; }
-    }, []);
+    }, [eventId]);
 
 
 

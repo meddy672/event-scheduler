@@ -12,7 +12,7 @@ import './Events.css';
 function Events() {
     const [events, setEvents] = useState([]);
     const [filterDate, onChangeFilterDate] = useState(new Date());
-    let mounted = true;
+    
     
 
 
@@ -20,6 +20,7 @@ function Events() {
      * retrieve all events from sever
      */
     useEffect(() => {
+        let mounted = true;
         axios.get('http://localhost:3000/events')
             .then(({ data }) => {
                 if (mounted) {
