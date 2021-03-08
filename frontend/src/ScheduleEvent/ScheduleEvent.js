@@ -26,7 +26,7 @@ function ScheduleEvent() {
         formData.append('type', event.target.eventType.value);
         formData.append('start', startTime);
         formData.append('end', endTime);
-        const res = await axios.post('http://localhost:3000/events', formData, {
+        const res = await axios.post('http://localhost:5000/events', formData, {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }

@@ -21,7 +21,7 @@ function Events() {
      */
     useEffect(() => {
         let mounted = true;
-        axios.get('http://localhost:3000/events')
+        axios.get('http://localhost:5000/events')
             .then(({ data }) => {
                 if (mounted) {
                     setEvents(data.events);
@@ -39,7 +39,7 @@ function Events() {
      * allow user to delete an event
      */
     async function deleteEvent(id) {
-        const { data } = await axios.delete('http://localhost:3000/events/' + id);
+        const { data } = await axios.delete('http://localhost:5000/events/' + id);
         setEvents(data.events);
     }
 
@@ -49,7 +49,7 @@ function Events() {
     async function filterEvents() {
         const formData = new URLSearchParams() 
         formData.append('date', filterDate);
-        const {data} = await axios.post('http://localhost:3000/events/filter', formData, {
+        const {data} = await axios.post('http://localhost:5000/events/filter', formData, {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
               }

@@ -13,9 +13,13 @@ function RSVP() {
     const [event, setEvent] = useState({});
 
 
+
+    /**
+     * fetch the event and set the initial state
+     */
     useEffect(() => {
         let mounted = true;
-        axios.get(`http://localhost:3000/events/${eventId}`)
+        axios.get(`http://localhost:5000/events/${eventId}`)
             .then(res => {
                 const { data } = res;
                 if (mounted) {
@@ -28,6 +32,8 @@ function RSVP() {
         
         return () => { mounted = false };
     })
+
+
     
     /**
      * handle form submission
@@ -37,13 +43,26 @@ function RSVP() {
         const formData = new URLSearchParams();
         formData.append('fullName', e.target.fullName.value);
         formData.append('status', e.target.status.value);
-        const { data } = await axios.post(`http://localhost:3000/events/rsvp/${eventId}`, formData, {
+        const res = await axios.post(`http://localhost:5000/events/rsvp/${eventId}`, formData, {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
               }
         })
-        console.log(data);
+        if (res.status === 200) {
+            clearFields(e);
+        }
     }
+
+
+
+    /**
+     * handles clearing form input fields.
+     */
+    function clearFields(event) {
+        event.target.fullName.value = '';
+        event.target.status.value = '';
+    }
+
 
     return (
         <div className="container rsvp">
@@ -67,9 +86,9 @@ function RSVP() {
                             className="form-select"
                             aria-label="Default select example">
                             <option defaultValue>Select Option</option>
-                            <option value="In-person">Going</option>
-                            <option value="Hybird">Maybe</option>
-                            <option value="Virtual">Not Going</option>
+                            <option value="Going">Going</option>
+                            <option value="Maybe">Maybe</option>
+                            <option value="Not Going">Not Going</option>
                         </select>
                     </div>
                     <div className="col-12">

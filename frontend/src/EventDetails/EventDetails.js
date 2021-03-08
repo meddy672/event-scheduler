@@ -12,11 +12,13 @@ function EventDetails() {
     const [startTime, onChangeStartTime] = useState(new Date());
     const [endTime, onChangeEndTime] = useState(new Date());
 
-    
 
+    /**
+     * fetch the event and set the state
+     */
     useEffect(() => {
         let mounted = true;
-        axios.get(`http://localhost:3000/events/${eventId}`)
+        axios.get(`http://localhost:5000/events/${eventId}`)
             .then(({ data }) => {
                 if (mounted) {
                     setEvent(data.event);
@@ -44,12 +46,24 @@ function EventDetails() {
         formData.append('type', event.target.eventType.value);
         formData.append('start', startTime);
         formData.append('end', endTime);
-         await axios.put(`http://localhost:3000/events/${eventId}`, formData, {
+        const res  = await axios.put(`http://localhost:5000/events/${eventId}`, formData, {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
               }
         });
-        
+        if (res.status === 200) {
+            clearFields(event);
+        }
+    }
+
+    /**
+     * handles clearing form input fields.
+     */
+    function clearFields(event) {
+        event.target.eventName.value = '';
+        event.target.eventDescription.value = '';
+        event.target.eventLocation.value = '';
+        event.target.eventType.value = '';
     }
 
 

@@ -55,7 +55,7 @@ There is no need to create a database as mongo will take care of that for you on
 1. `cd backend`
 2. `npm init`
 3. `npm start`
-After this you will see a console message *Server is running on port 3000*
+After this you will see a console message *Server is running on port 5000*
 
 Project Obstacles
 The most challenging part of this project was working with dates. Even using popular software packages like moment resolved some, but most certainly not all possible looming isses that could happen when working with dates.
