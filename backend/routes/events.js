@@ -84,4 +84,10 @@ router.delete('/:eventId', eventCtrl.deleteEvent);
 router.get('/', eventCtrl.getEvents);
 
 
+/**
+ * route to get a particular event
+ */
+router.get('/:eventId', eventCtrl.getEvent)
+
+
 module.exports = router;

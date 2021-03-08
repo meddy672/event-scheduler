@@ -71,21 +71,21 @@ function ScheduleEvent() {
                             name="eventLocation"
                             id="eventLocation" />
                 </div>
-                <div className="col-4">
+                <div className="col-sm-12 col-md-6 col-lg-4">
                     <label className="form-label">Start Time</label>
                         <DateTimePicker
                             format="M/d/y hh:mm a"
                             onChange={onChangeStartTime}
                             value={startTime} />
                 </div>
-                <div className="col-4">
+                <div className="col-sm-12 col-md-6 col-lg-4">
                     <label className="form-label">End Time</label>
                         <DateTimePicker
                             onChange={onChangeEndTime}
                             value={endTime} />
                 </div>
 
-                <div className="col-4">
+                <div className="col-sm-12 col-md-6 col-lg-4">
                     <label className="form-label">Event Type</label>
                         <select
                             name="eventType"

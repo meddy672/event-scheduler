@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBullhorn } from '@fortawesome/free-solid-svg-icons';
 import DateTimePicker from 'react-datetime-picker';
@@ -25,7 +26,9 @@ function Events() {
                     console.log(data.events);
                     setEvents(data.events);
                 }
-            });
+            }).catch((err) => {
+                throw new Error(err.message);
+            })
         
         return () => { mounted = false; }
     }, []);
@@ -89,7 +92,9 @@ function Events() {
                                         </li>
                                     </ul>
                                     <div className="card-body">
-                                        <span onClick={() => deleteEvent(event._id)} className="card-link">Delete</span>                                    
+                                        <span onClick={() => deleteEvent(event._id)} className="card-link">Delete</span>
+                                        <NavLink to={`/events/details/${event._id}`} className="card-link">Update</NavLink>
+                                        <NavLink to={`/events/details/${event._id}`} className="card-link">RSVP</NavLink>
                                     </div>
                                 </div>
                             </div>

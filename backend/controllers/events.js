@@ -20,7 +20,23 @@ exports.getEvents = async (req, res, next) => {
             messgae: 'An error has occurred'
         })
      }
- }
+}
+ 
+exports.getEvent = async (req, res, next) => {
+    const eventId = req.params.eventId;
+    try {
+        const event = await Event.findById({ _id: eventId });
+        res.status(200).json({
+            message: 'Found event with id',
+            event: event
+        })
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            message: 'An error has occurred'
+        })
+    }
+}
 
 
 /**
