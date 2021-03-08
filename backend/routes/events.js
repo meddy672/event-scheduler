@@ -29,7 +29,6 @@ router.post('/',
  * and type. if error is found validate middleware
  * throws an error.
  */
-
 router.put('/:eventId',
     [
         body('name').trim().not().isEmpty(),

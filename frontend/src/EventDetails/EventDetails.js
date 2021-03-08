@@ -16,7 +16,7 @@ function EventDetails() {
 
     useEffect(() => {
 
-        axios.get('http://localhost:3000/events/' + eventId)
+        axios.get(`http://localhost:3000/events/${eventId}`)
             .then(({ data }) => {
                 if (mounted) {
                     setEvent(data.event);
@@ -30,7 +30,9 @@ function EventDetails() {
         return () => { mounted = false; }
     }, []);
 
-        /**
+
+
+    /**
      * handles submitting data to server.
      */
     async function handleSubmit(event) {
@@ -42,7 +44,7 @@ function EventDetails() {
         formData.append('type', event.target.eventType.value);
         formData.append('start', startTime);
         formData.append('end', endTime);
-        const res = await axios.put('http://localhost:3000/events/'+eventId, formData, {
+         await axios.put(`http://localhost:3000/events/${eventId}`, formData, {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
               }
@@ -50,17 +52,18 @@ function EventDetails() {
         
     }
 
+
     return (
         <div className="container mg-top-50">
             <div className="col-md-12">
-                <h1>Edit Event: {event.name}</h1>
+                <h1>Update Event: {event.name}</h1>
                 <hr />
             </div>
-            {event.rsvp > 0 ? (
+            {event.rsvp && event.rsvp.length > 0 ? (
                 <div>
-                    <label>RSVP:</label>
+                    <label className="rsvp-label">RSVP:</label>
                     {event.rsvp.map((attendee, index) => {
-                        <span key={index}>{attendee.name} {attendee.status}</span>
+                        return (<span className="attendee" key={index}>{attendee.name} - {attendee.status}</span>)
                     })}
                 </div>
             ) : (

@@ -23,7 +23,6 @@ function Events() {
         axios.get('http://localhost:3000/events')
             .then(({ data }) => {
                 if (mounted) {
-                    console.log(data.events);
                     setEvents(data.events);
                 }
             }).catch((err) => {
@@ -94,7 +93,7 @@ function Events() {
                                     <div className="card-body">
                                         <span onClick={() => deleteEvent(event._id)} className="card-link">Delete</span>
                                         <NavLink to={`/events/details/${event._id}`} className="card-link">Update</NavLink>
-                                        <NavLink to={`/events/details/${event._id}`} className="card-link">RSVP</NavLink>
+                                        <NavLink to={`/events/rsvp/${event._id}`} className="card-link">RSVP</NavLink>
                                     </div>
                                 </div>
                             </div>

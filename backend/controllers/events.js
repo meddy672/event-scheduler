@@ -89,7 +89,9 @@ exports.updateEvent = async (req, res, next) => {
         event.description = req.body.description;
         event.location = req.body.location;
         event.eventType = req.body.type;
-        req.body.rsvp ? event.rsvp.push(req.body.rsvp) : false; // TODO: Bug Fix Multiple statuses
+        if (req.body.rsvp !== null && req.body.rsvp !== undefined) {
+            event.rsvp.push(req.body.rsvp);
+        }
         await event.save();
         res.status(200).json({
             message: 'Event updated successfully',
@@ -181,6 +183,7 @@ exports.listRsvp = async (req, res, next) => {
  */
 exports.rsvp = async (req, res, next) => {
     const eventId = req.params.eventId;
+    console.log(req.body)
     try {
         const event = await Event.findById({ _id: eventId });
         const rsvp = {
@@ -188,6 +191,7 @@ exports.rsvp = async (req, res, next) => {
             status: req.body.status
         }
         event.rsvp.push(rsvp); // TODO: Bug Fix Multiple statuses
+        await event.save();
         res.status(200).json({
             message: 'RSVP created successfully',
             rsvp: event.rsvp
