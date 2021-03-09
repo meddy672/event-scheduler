@@ -1,7 +1,7 @@
 # Event-scheduler
 
 ## Overview
-The event scheduler is a single page web appilcatiton built with **ReactJS**, **NodeJS & ExpressJS**, **Bootstrap 5** and **MongoDB**. The application allows for a user to create, update, delete, and filter events as well as RSVP to aparticular event. To see the in action check this [video](https://youtu.be/7driUG2Ld5k)
+The event scheduler is a single page web appilcatiton built with **ReactJS**, **NodeJS & ExpressJS**, **Bootstrap 5** and **MongoDB**. The application allows for a user to create, update, delete, and filter events as well as RSVP to aparticular event. To see the app in action check out this [video](https://youtu.be/7driUG2Ld5k)
 
 ## Required Software
 These software technologies must be installed on your machine.
