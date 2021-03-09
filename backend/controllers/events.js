@@ -21,7 +21,11 @@ exports.getEvents = async (req, res, next) => {
         })
      }
 }
- 
+
+
+/**
+ * get a single event from database
+ */
 exports.getEvent = async (req, res, next) => {
     const eventId = req.params.eventId;
     try {
@@ -190,7 +194,7 @@ exports.rsvp = async (req, res, next) => {
             name: req.body.fullName,
             status: req.body.status
         }
-        event.rsvp.push(rsvp); // TODO: Bug Fix Multiple statuses
+        event.rsvp.push(rsvp);
         await event.save();
         res.status(200).json({
             message: 'RSVP created successfully',
