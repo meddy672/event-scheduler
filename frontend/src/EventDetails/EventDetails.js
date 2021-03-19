@@ -21,6 +21,7 @@ function EventDetails() {
         axios.get(`http://localhost:5000/events/${eventId}`)
             .then(({ data }) => {
                 if (mounted) {
+                    console.log(data.event)
                     setEvent(data.event);
                 }
             })
@@ -95,6 +96,8 @@ function EventDetails() {
                         <div className="col-md-6">
                             <label className="form-label">Event Name</label>
                             <input
+                                value={event.name}
+                                onChange={(e) => {setEvent({name: e.target.value})}}
                                 type="text"
                                 className="form-control"
                                 name="eventName"
@@ -104,6 +107,8 @@ function EventDetails() {
                             <label className="form-label">Event Location</label>
                             <input
                                 type="text"
+                                value={event.location}
+                                onChange={e => setEvent({location: e.target.value})}
                                 className="form-control"
                                 name="eventLocation"
                                 id="eventLocation" />
@@ -113,13 +118,13 @@ function EventDetails() {
                             <DateTimePicker
                             format="M/d/y hh:mm a"
                             onChange={onChangeStartTime}
-                            value={startTime} />
+                            value={event.start} />
                         </div>
                         <div className="col-4">
                             <label className="form-label">End Time</label><br/>
                             <DateTimePicker
                             onChange={onChangeEndTime}
-                            value={endTime} />
+                            value={event.end} />
                         </div>
 
                         <div className="col-4">
@@ -127,6 +132,7 @@ function EventDetails() {
                             <select
                                 name="eventType"
                                 id="eventType"
+                                value={event.eventType}
                                 className="form-select"
                                 aria-label="Default select example">
                                 <option defaultValue>Select Option</option>
@@ -139,6 +145,8 @@ function EventDetails() {
                         <div className="col-sm-12">
                             <label className="form-label">Description</label>
                             <textarea
+                                value={event.description}
+                                onChange={e => setEvent({ description: e.target.value})}
                                 className="form-control"
                                 name="eventDescription"
                                 id="eventDescription"
